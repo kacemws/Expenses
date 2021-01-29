@@ -14,7 +14,7 @@ class ChartBar extends StatelessWidget {
     return LayoutBuilder(builder: (ctx,constraints){
       return Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
 
-        Container(margin: EdgeInsets.only(top: constraints.maxHeight*0.05),height: constraints.maxHeight*0.15,child:Text(label, style: Theme.of(context).textTheme.title,)),
+        Container(margin: EdgeInsets.only(top: constraints.maxHeight*0.05),height: constraints.maxHeight*0.15,child:Text(label, style: Theme.of(context).textTheme.headline2,)),
 
         SizedBox(height: constraints.maxHeight*0.05,),
         Container(
@@ -26,7 +26,7 @@ class ChartBar extends StatelessWidget {
           child: Stack(/*Place elements on top of each other*/
             children: <Widget>[
               Container(
-                color: const Color.fromRGBO(11,9,15, 21),
+                color: Color(0xfffec843),
               ),
               FractionallySizedBox(
                 heightFactor: totalSpendings,
@@ -37,7 +37,7 @@ class ChartBar extends StatelessWidget {
           ),
         ),
         SizedBox(height: constraints.maxHeight*0.05,),
-        Container(margin: EdgeInsets.only(bottom: constraints.maxHeight*0.05),height: constraints.maxHeight*0.15, child: FittedBox(child: Text(amount.toString(), style: Theme.of(context).textTheme.title),))/*So that the child would stay in the container box*/
+        Container(margin: EdgeInsets.only(bottom: constraints.maxHeight*0.05),height: constraints.maxHeight*0.15, child: FittedBox(child: Text(amount.toString(), style: Theme.of(context).textTheme.bodyText1),))/*So that the child would stay in the container box*/
         
       ],);
     },);
