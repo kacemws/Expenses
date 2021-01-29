@@ -16,6 +16,7 @@ class NewTransactionState extends State<NewTransaction>{
   
   final titleController = TextEditingController();/*To receive the input*/
   final amountController = TextEditingController();
+  final focus = FocusNode();
   var selectedDate;
 
   
@@ -69,12 +70,14 @@ class NewTransactionState extends State<NewTransaction>{
           TextField(
             decoration: InputDecoration(labelText: "title : ", labelStyle: Theme.of(context).textTheme.subtitle1),
             controller: titleController,
+            textInputAction: TextInputAction.next,
             onSubmitted: (_){
-              print('not yet');
+              FocusScope.of(context).requestFocus(focus);
             },
             /* We couldve used on change : (aux){ ourVar = aux;}*/
           ),
           TextField(
+            focusNode: focus,
             decoration: InputDecoration(labelText: "amount : ", labelStyle: Theme.of(context).textTheme.subtitle1),
             controller: amountController,
             keyboardType: TextInputType.number,
@@ -93,11 +96,11 @@ class NewTransactionState extends State<NewTransaction>{
             height : 40,
             child :RaisedButton(
             child: Text("Submit", style: Theme.of(context).textTheme.headline3.copyWith(
-              color: Color((titleController?.text?.isEmpty || double.parse(amountController.text) <=0 || selectedDate == null)? 0xff181818 : 0xfffbf4e4)
+              color: Color(( (titleController?.text ?? "")?.isEmpty || amountController?.text?.isEmpty || amountController?.text == '0' || selectedDate == null)? 0xff181818 : 0xfffbf4e4)
             ),),
             disabledColor: Color(0xffe1e1e1),
             color: Color(0xff1d888a),
-            onPressed: (titleController?.text?.isEmpty || double.parse(amountController.text) <=0 || selectedDate == null)? null : submitData,
+            onPressed: ( (titleController?.text ?? "")?.isEmpty || amountController?.text?.isEmpty || amountController?.text == '0' || selectedDate == null)? null : submitData,
           )),
         ],
       ),),)
