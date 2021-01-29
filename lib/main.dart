@@ -38,13 +38,13 @@ class MyApp extends StatelessWidget {
         /*behind the bottom sheet lays a canvas, give it a transparent color and manipulate the container only*/
 
         textTheme: ThemeData.light().textTheme.copyWith(/**Text theme by name**/
-          headline1: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w500 ,fontSize: 24, height: 28),
-          subtitle1: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w400 ,fontSize: 16,height: 24),
-          headline2: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w500 ,fontSize: 18,height: 24),
-          subtitle2: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w600 ,fontSize: 12,height: 16),
-          headline3: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w500 ,fontSize: 14,height: 20),
-          bodyText1: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w400 ,fontSize: 14,height: 20),
-          caption: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w400 ,fontSize: 12,height: 20),
+          headline1: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w500 ,fontSize: 24, height: 1.15),
+          subtitle1: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w400 ,fontSize: 16,height: 1.5),
+          headline2: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w500 ,fontSize: 18,height: 1.33),
+          subtitle2: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w600 ,fontSize: 12,height: 1.33),
+          headline3: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w500 ,fontSize: 14,height: 1.42),
+          bodyText1: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w400 ,fontSize: 14,height: 1.42),
+          caption: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w400 ,fontSize: 12,height: 1.66),
         ),
         
       ),
@@ -75,7 +75,6 @@ class ExpensesAppState extends State<ExpensesApp> with WidgetsBindingObserver {/
   /*App lifecycle implem : */
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    print(state);
     super.didChangeAppLifecycleState(state);// handler of state changing
   }
 
@@ -112,8 +111,13 @@ class ExpensesAppState extends State<ExpensesApp> with WidgetsBindingObserver {/
   @override
   Widget build(BuildContext context) {
     final _appbar = AppBar(
-      title: const Center(
-        child: Text("Expensify"),            
+      title: Center(
+        child: Text(
+          "Expensify", 
+          style: Theme.of(context).textTheme.headline1.copyWith(
+            color: Color(0xfffbf4e4)
+          )
+        ),            
       ),
     );
     return Scaffold(
@@ -137,7 +141,7 @@ class ExpensesAppState extends State<ExpensesApp> with WidgetsBindingObserver {/
         ],
       ),
       floatingActionButtonLocation: (_transactions.length == 0)?FloatingActionButtonLocation.centerFloat : FloatingActionButtonLocation.endFloat, 
-      floatingActionButton: FloatingActionButton(child: const Icon(Icons.add), onPressed: ()=> _showNewTransaction(this.context),),
+      floatingActionButton: FloatingActionButton(child: const Icon(Icons.add, color: Color(0xfffbf4e4),), onPressed: ()=> _showNewTransaction(this.context),),
 
   );
   }
