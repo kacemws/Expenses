@@ -50,6 +50,11 @@ class NewTransactionState extends State<NewTransaction>{
     );
   }
 
+  void dispose() {
+    print('dont do shit');
+    super.dispose();/**Clear Listeners from memory when done with states */
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
