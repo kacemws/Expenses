@@ -55,19 +55,22 @@ class NewTransactionState extends State<NewTransaction>{
     return Card(
         
         //margin: EdgeInsets.fromLTRB(20, 12, 20, 88),
-        color: Colors.white,
-        child : Container( padding: EdgeInsets.only(top: 10, left: 10,right: 10, bottom: MediaQuery.of(context).viewInsets.bottom + 10),/*To raise the container whenever a keyboard is out */
+        color: Color(0xfff4f5f7),
+        child : Container( padding: EdgeInsets.only(top: 16, left: 16,right: 16, bottom: MediaQuery.of(context).viewInsets.bottom + 16),/*To raise the container whenever a keyboard is out */
         child: SingleChildScrollView(child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           
           TextField(
-            decoration: const InputDecoration(labelText: "title : "),
+            decoration: InputDecoration(labelText: "title : ", labelStyle: Theme.of(context).textTheme.subtitle1),
             controller: titleController,
+            onSubmitted: (_){
+              print('not yet');
+            },
             /* We couldve used on change : (aux){ ourVar = aux;}*/
           ),
           TextField(
-            decoration: const InputDecoration(labelText: "amount : "),
+            decoration: InputDecoration(labelText: "amount : ", labelStyle: Theme.of(context).textTheme.subtitle1),
             controller: amountController,
             keyboardType: TextInputType.number,
             onSubmitted: (_)=> submitData(),
@@ -76,15 +79,20 @@ class NewTransactionState extends State<NewTransaction>{
           Container(
             margin: EdgeInsets.all(15),
             child: Row( mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Text((selectedDate == null)?"Pick Up a date" : "Selected date :"+ DateFormat.yMd().format(selectedDate), style: Theme.of(context).textTheme.caption,),
-              IconButton(icon: Icon(Icons.calendar_today),onPressed: selectdate,color: Colors.black,)
-              //Text("Pick Up a date", style: Theme.of(context).textTheme.title,)
+              Text((selectedDate == null)?"Pick Up a date" : "Selected date :"+ DateFormat.yMd().format(selectedDate), style: Theme.of(context).textTheme.bodyText1,),
+              IconButton(icon: Icon(Icons.calendar_today),onPressed: selectdate,color: Color(0xff181818),)
             ],),
           ),
-          Container(margin:const EdgeInsets.all(15),height : 45,child :RaisedButton(
-            child: Text("Submit", style: Theme.of(context).textTheme.title,),
-            color: Theme.of(context).primaryColor,
-            onPressed: submitData,
+          Container(
+            margin:const EdgeInsets.all(15),
+            height : 40,
+            child :RaisedButton(
+            child: Text("Submit", style: Theme.of(context).textTheme.headline3.copyWith(
+              color: Color((titleController?.text?.isEmpty || double.parse(amountController.text) <=0 || selectedDate == null)? 0xff181818 : 0xfffbf4e4)
+            ),),
+            disabledColor: Color(0xffe1e1e1),
+            color: Color(0xff1d888a),
+            onPressed: (titleController?.text?.isEmpty || double.parse(amountController.text) <=0 || selectedDate == null)? null : submitData,
           )),
         ],
       ),),)

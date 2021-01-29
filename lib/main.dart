@@ -38,13 +38,13 @@ class MyApp extends StatelessWidget {
         /*behind the bottom sheet lays a canvas, give it a transparent color and manipulate the container only*/
 
         textTheme: ThemeData.light().textTheme.copyWith(/**Text theme by name**/
-          headline1: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w500 ,fontSize: 24, height: 1.15),
-          subtitle1: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w400 ,fontSize: 16,height: 1.5),
-          headline2: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w500 ,fontSize: 18,height: 1.33),
-          subtitle2: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w600 ,fontSize: 12,height: 1.33),
-          headline3: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w500 ,fontSize: 14,height: 1.42),
-          bodyText1: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w400 ,fontSize: 14,height: 1.42),
-          caption: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w400 ,fontSize: 12,height: 1.66),
+          headline1: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w500 ,fontSize: 24, height: 1.15, color: Color(0xff181818)),
+          subtitle1: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w400 ,fontSize: 16,height: 1.5,color: Color(0xff181818)),
+          headline2: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w500 ,fontSize: 18,height: 1.33,color: Color(0xff181818)),
+          subtitle2: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w600 ,fontSize: 12,height: 1.33,color: Color(0xff181818)),
+          headline3: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w500 ,fontSize: 14,height: 1.42,color: Color(0xff181818)),
+          bodyText1: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w400 ,fontSize: 14,height: 1.42,color: Color(0xff181818)),
+          caption: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w400 ,fontSize: 12,height: 1.66,color: Color(0xff181818)),
         ),
         
       ),
