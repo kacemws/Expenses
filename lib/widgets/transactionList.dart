@@ -18,11 +18,11 @@ class TransactionsList extends StatelessWidget {
     return transactions.length ==0 ?
     Container(child: Column(children: [
       Image.asset('assets/Image/people.png',fit: BoxFit.fill,),
-      SizedBox(height: 20,), /*To give space*/
-      const Text("No spendings found!"),
+      SizedBox(height: 24,), /*To give space*/
+      Text("No spendings found!", style: Theme.of(context).textTheme.headline1,),
     ]),
      
-    margin: EdgeInsets.only(top: 30),
+    margin: EdgeInsets.only(top: 32),
     ) : 
    
    
@@ -40,23 +40,23 @@ class TransactionsList extends StatelessWidget {
           ),
           direction: DismissDirection.endToStart,
           key: ValueKey(transactions[index].id) ,
-          child :Card (margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5) ,child : 
+          child :Card (margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8) ,child : 
           
           ListTile(
             
             
             leading: Container(
               
-              height: 150,
-              width: 100,
-              margin: const EdgeInsets.all(5),
+              height: 152,
+              width: 104,
+              margin: const EdgeInsets.all(4),
               decoration: BoxDecoration(border: Border.all(color: Theme.of(context).primaryColor, style: BorderStyle.solid, width: 2)),
-              child: Center(child :Text(transactions[index].amount.toStringAsFixed(2)+"\$", style: Theme.of(context).textTheme.body1, textAlign: TextAlign.center,),)
+              child: Center(child :Text(transactions[index].amount.toStringAsFixed(2)+"\$", style: Theme.of(context).textTheme.bodyText1, textAlign: TextAlign.center,),)
             ),
 
-            title: Text(transactions[index].title, style: Theme.of(context).textTheme.title,),
+            title: Text(transactions[index].title, style: Theme.of(context).textTheme.subtitle2,),
 
-            subtitle: Text(DateFormat.yMMMMEEEEd().format(transactions[index].pickupdate), style: Theme.of(context).textTheme.subtitle),
+            subtitle: Text(DateFormat.yMMMMEEEEd().format(transactions[index].pickupdate), style: Theme.of(context).textTheme.caption),
 
             trailing: const Icon(Icons.delete_outline), onTap: (){deleteHandler(id : transactions[index].id);},
           )),
