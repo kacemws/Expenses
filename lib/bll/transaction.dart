@@ -12,4 +12,13 @@ class Transaction{
     print("new one");
   }
 
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      'amount': amount,
+      'pickupdate' : pickupdate.toIso8601String()
+    };
+  }
+
 }
