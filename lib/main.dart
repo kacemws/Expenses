@@ -1,7 +1,8 @@
 
+import 'package:expenses/widgets/Colors.dart';
 import 'package:expenses/widgets/chart.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter/services.dart';
+import 'package:flutter/services.dart';
 
 import 'bll/transaction.dart';
 import 'widgets/NewTransaction.dart';
@@ -9,9 +10,13 @@ import 'widgets/transactionList.dart';
 
 //MediaQuery widget take the context by using MediaQuery.of(context) then give you the height and width of the actual device, this would be interesting when building an app that fits every phone!
 
-void main()=> runApp(MyApp()); 
+void main(){
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]).then((_){
+    runApp(MyApp());
+  });
+} 
   //Sets the wanted oriontation
-  //SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
   //To check what Orientation our device is on now
   //MediaQuery.of(context).orientation == Orientation.landscape || Orientation.portrait
  
@@ -28,23 +33,19 @@ class MyApp extends StatelessWidget {
       title: "Expenses",
       theme: ThemeData(/**Setting the theme for the app**/
 
-        primarySwatch: Colors.amber,/**Main Color**/
+        primarySwatch: primaryColor(),/**Main Color**/
         bottomSheetTheme: BottomSheetThemeData(backgroundColor: Colors.transparent),
         /*behind the bottom sheet lays a canvas, give it a transparent color and manipulate the container only*/
 
         textTheme: ThemeData.light().textTheme.copyWith(/**Text theme by name**/
-         title: TextStyle(fontFamily: "Montserrat", fontWeight: FontWeight.w700 ,fontSize: 20),
-         caption: TextStyle(fontFamily: "Robotic" ,fontSize: 18, color: Colors.black),
-         subtitle: TextStyle(fontFamily: "Robotic", fontWeight: FontWeight.w300 ,fontSize: 14),
-         body1: TextStyle(fontFamily: "Montserrat", fontWeight: FontWeight.w700 ,fontSize: 22)
+          headline1: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w500 ,fontSize: 24, height: 28),
+          subtitle1: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w400 ,fontSize: 16,height: 24),
+          headline2: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w500 ,fontSize: 18,height: 24),
+          subtitle2: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w600 ,fontSize: 12,height: 16),
+          headline3: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w500 ,fontSize: 14,height: 20),
+          bodyText1: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w400 ,fontSize: 14,height: 20),
+          caption: TextStyle(fontFamily: "Roboto", fontWeight: FontWeight.w400 ,fontSize: 12,height: 20),
         ),
-        
-        appBarTheme: AppBarTheme(
-          textTheme: ThemeData.light().textTheme.copyWith(/**Copy the theme while adding **/
-            title: TextStyle(fontFamily: "Montserrat", fontWeight: FontWeight.w700 ,fontSize: 24, color: Colors.black),
-          )
-        ),
-
         
       ),
       home: ExpensesApp(),
