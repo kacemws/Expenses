@@ -1,8 +1,10 @@
 
+import 'package:expenses/bll/provider.dart';
 import 'package:expenses/widgets/Colors.dart';
 import 'package:expenses/widgets/chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 import 'bll/transaction.dart';
 import 'widgets/NewTransaction.dart';
@@ -26,8 +28,13 @@ class MyApp extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    
-    return MaterialApp(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context)=>Expenses())
+      ],
+      child: Consumer<Expenses>(
+
+        builder: (context, auth, _) => MaterialApp(
       
       debugShowCheckedModeBanner: false,
       title: "Expenses",
@@ -49,8 +56,11 @@ class MyApp extends StatelessWidget {
         
       ),
       home: ExpensesApp(),
+    )
+  
+      )
     );
-  }
+    }
 }
 
 
@@ -61,7 +71,8 @@ class ExpensesApp extends StatefulWidget {
 /*Mixins are used to let you extend from diffrent classes, use the keyword "with" followed by the name of the class aimed, exemple :*/
 class ExpensesAppState extends State<ExpensesApp> with WidgetsBindingObserver {//widgetBindingObserver holds the app lifecycle states (inactive, paused, resumed and suspending)
 
-  final List<Transaction> _transactions = [];
+  List<Transaction> _transactions = [];
+  Expenses provider;
   
   List<Transaction> get _recentTr{
   
@@ -72,6 +83,7 @@ class ExpensesAppState extends State<ExpensesApp> with WidgetsBindingObserver {/
     }).toList();
   }/*Passing only this weeks transactions*/
 
+
   /*App lifecycle implem : */
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
@@ -81,6 +93,10 @@ class ExpensesAppState extends State<ExpensesApp> with WidgetsBindingObserver {/
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
+    Future.delayed(Duration.zero).then((_) async{
+
+      Provider.of<Expenses>(context, listen: false).fetchData();
+    });
     super.initState();
   }//add the listener
 
@@ -91,17 +107,11 @@ class ExpensesAppState extends State<ExpensesApp> with WidgetsBindingObserver {/
 
 
   void addTransaction({@required String title,@required double amount,@required DateTime pickUpDate}){
-    setState(() {
-      _transactions.add(Transaction(id: DateTime.now().toString(), title: title,amount: amount, pickupdate: pickUpDate));
-    });
+    provider.insertTx(Transaction(id: DateTime.now().toString(), title: title,amount: amount, pickupdate: pickUpDate));
   }/*Method to call when we want to add transactions */
 
   void deleteTransaction({@required id}){
-    setState(() {
-      _transactions.removeWhere((element){
-        return element.id == id;
-      });
-    });
+    provider.deleteTx(id);
   }
   
   void _showNewTransaction(context){
@@ -110,6 +120,9 @@ class ExpensesAppState extends State<ExpensesApp> with WidgetsBindingObserver {/
   
   @override
   Widget build(BuildContext context) {
+    provider = Provider.of<Expenses>(context, listen: true);
+    print('rebuild');
+    _transactions = provider.transactions;
     final _appbar = AppBar(
       title: Center(
         child: Text(
@@ -123,7 +136,7 @@ class ExpensesAppState extends State<ExpensesApp> with WidgetsBindingObserver {/
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: _appbar,
-      body: Column(/*So that the app can be scrolled*/
+      body: provider.loaded? Column(/*So that the app can be scrolled*/
 
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -139,6 +152,12 @@ class ExpensesAppState extends State<ExpensesApp> with WidgetsBindingObserver {/
           )
 
         ],
+      ) : Container(
+        height: double.infinity,
+        width: double.infinity,
+        child: Center(
+                      child: const CircularProgressIndicator(),
+        ),
       ),
       floatingActionButtonLocation: (_transactions.length == 0)?FloatingActionButtonLocation.centerFloat : FloatingActionButtonLocation.endFloat, 
       floatingActionButton: FloatingActionButton(child: const Icon(Icons.add, color: Color(0xfffbf4e4),), onPressed: ()=> _showNewTransaction(this.context),),
