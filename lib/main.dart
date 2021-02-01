@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         builder: (context, auth, _) => MaterialApp(
       
       debugShowCheckedModeBanner: false,
-      title: "Expenses",
+      title: "Expenses manager",
       theme: ThemeData(/**Setting the theme for the app**/
 
         primarySwatch: primaryColor(),/**Main Color**/
@@ -126,7 +126,7 @@ class ExpensesAppState extends State<ExpensesApp> with WidgetsBindingObserver {/
     final _appbar = AppBar(
       title: Center(
         child: Text(
-          "Expensify", 
+          "Expenses manager", 
           style: Theme.of(context).textTheme.headline1.copyWith(
             color: Color(0xfffbf4e4)
           )
